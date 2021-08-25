@@ -1,5 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApiVendaFacil.Models
 {
@@ -18,14 +18,15 @@ namespace ApiVendaFacil.Models
         public long CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        public List<OrderItem> Items { get; set; }
+        public decimal Value { get; set; }
 
-        public decimal TotalValue { get; set; }
+        public decimal Discount { get; set; }
 
-        // public int Discount { get; set; }
+        public decimal Total { get; set; }
 
-        // public decimal FinalValue { get; set; }
-
+        [Range(1,3)]
         public int Status { get; set; }
+
+        public List<OrderItem> Items { get; set; }
     }
 }

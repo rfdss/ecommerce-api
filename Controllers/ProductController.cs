@@ -1,64 +1,63 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 using ApiVendaFacil.Models;
 using ApiVendaFacil.Data;
 
 namespace ApiVendaFacil.Controllers
 {
     [ApiController]
-    [Route("v1/users")]
-    public class UserController : ControllerBase
+    [Route("v1/products")]
+    public class ProductController : ControllerBase
     {
         [HttpGet]
-        public async Task<IEnumerable<User>> Get(
+        public async Task<List<Product>> Get(
             [FromServices] DataContext ctx)
         {
-            return await ctx.Users
+            return await ctx.Products
+                .Include(product => product.Category)
                 .AsNoTracking()
                 .ToListAsync();
         }
 
         [HttpGet("{id:long}")]
-        public async Task<User> Fetch(
+        public async Task<Product> Fetch(
             [FromServices] DataContext ctx,
             long id)
         {
-            return await ctx.Users.AsNoTracking()
-                .FirstOrDefaultAsync(user => user.Id == id);
+            return await ctx.Products.AsNoTracking()
+                .FirstOrDefaultAsync(product => product.Id == id);
         }
 
         [HttpPost]
-        public async Task<User> Create(
+        public async Task<Product> Create(
             [FromServices] DataContext ctx,
-            [FromBody] User user)
+            [FromBody] Product product)
         {
             if (ModelState.IsValid)
             {
-                ctx.Users.Add(user);
+                ctx.Products.Add(product);
                 await ctx.SaveChangesAsync();
-                return user;
+                return product;
             }
 
             return null;
         }
 
         [HttpPut("{id:long}")]
-        public async Task<User> Update(
+        public async Task<Product> Update(
             [FromServices] DataContext ctx,
             long id,
-            [FromBody] User user)
+            [FromBody] Product product)
         {
             if (this.Fetch(ctx, id) != null)
             {
                 if (ModelState.IsValid)
                 {
-                    ctx.Users.Update(user);
+                    ctx.Products.Update(product);
                     await ctx.SaveChangesAsync();
-                    return user;
+                    return product;
                 }
             }
 
@@ -70,12 +69,12 @@ namespace ApiVendaFacil.Controllers
             [FromServices] DataContext ctx,
             long id)
         {
-            var user = await ctx.Users.AsNoTracking()
-                .FirstOrDefaultAsync(user => user.Id == id);
+            var product = await ctx.Products.AsNoTracking()
+                .FirstOrDefaultAsync(product => product.Id == id);
             
-            if (user != null)
+            if (product != null)
             {
-                ctx.Users.Remove(user);
+                ctx.Products.Remove(product);
                 await ctx.SaveChangesAsync();
                 return true;
             }

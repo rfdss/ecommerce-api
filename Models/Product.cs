@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApiVendaFacil.Models
@@ -30,6 +31,9 @@ namespace ApiVendaFacil.Models
         [Required]
         public decimal Price { get; set; }
 
+        [Range(0,1)]
         public int Status { get; set; }
+
+        // public List<OrderItem> OrderItems { get; set; }
     }
 }

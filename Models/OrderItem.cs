@@ -17,6 +17,7 @@ namespace ApiVendaFacil.Models
         public long ProductId { get; set; }
         public Product Product { get; set; }
 
-        public int Status { get; set; }
+        [Required]
+        public int Quantity { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApiVendaFacil.Models
@@ -14,5 +15,7 @@ namespace ApiVendaFacil.Models
         public string Description { get; set; }
 
         public int Status { get; set; }
+
+        // public List<Product> Products { get; set; }
     }
 }

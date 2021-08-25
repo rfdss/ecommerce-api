@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApiVendaFacil.Models
@@ -19,6 +20,9 @@ namespace ApiVendaFacil.Models
 
         public string Address { get; set; }
 
+        [Range(0,1)]
         public int Status { get; set; }
+
+        public List<Order> Orders { get; set; }
     }
 }

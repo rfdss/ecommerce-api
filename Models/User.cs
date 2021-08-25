@@ -1,4 +1,5 @@
-using System.Text.Json.Serialization;
+using System.Collections.Generic;
+// using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApiVendaFacil.Models
@@ -15,17 +16,17 @@ namespace ApiVendaFacil.Models
         public string Username { get; set; }
 
         [Required]
-        [MinLength(8)]
-        [MaxLength(18)]
-        [JsonIgnore]
+        [MinLength(6)]
+        [MaxLength(12)]
+        // [JsonIgnore]
         public string Password { get; set; }
 
         [Required]
-        [Range(1, long.MaxValue)]
-        [JsonIgnore]
-        public long RoleId { get; set; }
-        public Role Role { get; set; }
+        [Range(1,3)]
+        public int Type { get; set; }
 
         public int Status { get; set; }
+
+        public List<Order> Orders { get; set; }
     }
 }

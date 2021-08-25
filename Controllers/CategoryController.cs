@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,54 +8,54 @@ using ApiVendaFacil.Data;
 namespace ApiVendaFacil.Controllers
 {
     [ApiController]
-    [Route("v1/roles")]
-    public class RoleController : ControllerBase
+    [Route("v1/categories")]
+    public class CategoryController : ControllerBase
     {
         [HttpGet]
-        public async Task<IEnumerable<Role>> Get(
+        public async Task<IEnumerable<Category>> Get(
             [FromServices] DataContext ctx)
         {
-            return await ctx.Roles
+            return await ctx.Categories
                 .ToListAsync();
         }
 
         [HttpGet("{id:long}")]
-        public async Task<Role> Fetch(
+        public async Task<Category> Fetch(
             [FromServices] DataContext ctx,
             long id)
         {
-            return await ctx.Roles.AsNoTracking()
-                .FirstOrDefaultAsync(role => role.Id == id);
+            return await ctx.Categories.AsNoTracking()
+                .FirstOrDefaultAsync(category => category.Id == id);
         }
 
         [HttpPost]
-        public async Task<Role> Create(
+        public async Task<Category> Create(
             [FromServices] DataContext ctx,
-            [FromBody] Role role)
+            [FromBody] Category category)
         {
             if (ModelState.IsValid)
             {
-                ctx.Roles.Add(role);
+                ctx.Categories.Add(category);
                 await ctx.SaveChangesAsync();
-                return role;
+                return category;
             }
 
             return null;
         }
 
         [HttpPut("{id:long}")]
-        public async Task<Role> Update(
+        public async Task<Category> Update(
             [FromServices] DataContext ctx,
             long id,
-            [FromBody] Role role)
+            [FromBody] Category category)
         {
             if (this.Fetch(ctx, id) != null)
             {
                 if (ModelState.IsValid)
                 {
-                    ctx.Roles.Update(role);
+                    ctx.Categories.Update(category);
                     await ctx.SaveChangesAsync();
-                    return role;
+                    return category;
                 }
             }
 
@@ -68,12 +67,12 @@ namespace ApiVendaFacil.Controllers
             [FromServices] DataContext ctx,
             long id)
         {
-            var role = await ctx.Roles.AsNoTracking()
-                .FirstOrDefaultAsync(role => role.Id == id);
+            var category = await ctx.Categories.AsNoTracking()
+                .FirstOrDefaultAsync(category => category.Id == id);
             
-            if (role != null)
+            if (category != null)
             {
-                ctx.Roles.Remove(role);
+                ctx.Categories.Remove(category);
                 await ctx.SaveChangesAsync();
                 return true;
             }
