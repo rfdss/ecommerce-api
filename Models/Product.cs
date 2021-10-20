@@ -26,7 +26,7 @@ namespace ApiVendaFacil.Models
         public int Quantity { get; set; }
 
         [Required]
-        public decimal CostPrice { get; set; }
+        public decimal Cost { get; set; }
 
         [Required]
         public decimal Price { get; set; }

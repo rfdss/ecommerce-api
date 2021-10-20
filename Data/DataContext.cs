@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using ApiVendaFacil.Models;
 
@@ -24,14 +25,21 @@ namespace ApiVendaFacil.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=database.db");
+            // optionsBuilder.UseSqlite("Data Source=database.db");
+            optionsBuilder.UseNpgsql("Host=localhost;Database=AppVendaFacil;Username=postgres;Password=qwe123");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   
-            // modelBuilder.Entity<Category>()
-                // .HasMany<Product>(category => category.Products);
+            modelBuilder.Entity<User>()
+                .HasMany<Order>(user => user.Orders);
+            
+            modelBuilder.Entity<Customer>()
+                .HasMany<Order>(customer => customer.Orders);
 
+            /*modelBuilder.Entity<Category>()
+                .HasMany<Product>(category => category.Products);*/
+            
             modelBuilder.Entity<Product>()
                 .HasOne<Category>(product => product.Category);
 
@@ -39,12 +47,6 @@ namespace ApiVendaFacil.Data
                 .HasMany<OrderItem>(order => order.Items);
                 //.WithOne(orderItem => orderItem.Order)
                 //.HasForeignKey(orderItem => orderItem.OrderId);
-            
-            modelBuilder.Entity<User>()
-                .HasMany<Order>(user => user.Orders);
-            
-            modelBuilder.Entity<Customer>()
-                .HasMany<Order>(customer => customer.Orders);
         }
     }
 }

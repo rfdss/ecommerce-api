@@ -58,6 +58,7 @@ namespace ApiVendaFacil.Controllers
             long id,
             [FromBody] Order order)
         {
+            // TODO: Refactor to use Repository insetad this.Fetch
             if (this.Fetch(ctx, id) != null)
             {
                 if (ModelState.IsValid)
@@ -90,6 +91,7 @@ namespace ApiVendaFacil.Controllers
             long id,
             [FromBody] List<OrderItem> items)
         {
+            // TODO: Refactor to use Repository insetad this.Fetch
             if (this.Fetch(ctx, id) != null)
             {
                 if (ModelState.IsValid)

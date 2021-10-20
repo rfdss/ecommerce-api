@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +20,8 @@ namespace ApiVendaFacil
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFrameworkSqlite();
+            // services.AddEntityFrameworkSqlite();
+            services.AddEntityFrameworkNpgsql();
             services.AddDbContext<DataContext>();
             services.AddScoped<DataContext, DataContext>();
 
