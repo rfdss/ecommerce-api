@@ -1,2 +1,3 @@
-# ApiVendaFacil
-REST API of AppVendaFacil
+# Open eCommerce
+
+WIP
